@@ -20,7 +20,7 @@ public class NumberOfElements {
   private static void printNumber(List<Integer> lst) {
     Map<Integer, Integer> map = new HashMap<>();
     Map<Integer, List<Integer>> mapList = new HashMap<>();
-    lst.forEach(integer -> map.merge(integer, 1, (a, b) -> Integer.sum(a, b)));
+    lst.forEach(integer -> map.merge(integer, 1, Integer::sum));
     lst.forEach(integer -> mapList.merge(integer, List.of(1), (v1, v2) ->
       List.of(Integer.sum(v2.get(0), v1.get(0)))
         ));
