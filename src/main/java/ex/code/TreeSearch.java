@@ -27,11 +27,14 @@ public class TreeSearch {
   interface Node {
     List<Node> getChildNodes();
     String getNodeName();
+    Node getParent();
+    Node setParent(Node node);
   }
 
   static class NodeImpl implements Node {
     private final String name;
     private final List<Node> children;
+    private  Node parent;
 
     public NodeImpl(String name, List<Node> children) {
       this.name = name;
@@ -47,6 +50,17 @@ public class TreeSearch {
     public String getNodeName() {
       return name;
     }
+
+    @Override
+    public Node getParent() {
+      return parent;
+    }
+
+    @Override
+    public Node setParent(Node node) {
+      parent = node;
+      return this;
+    }
   }
 
   public Node getRootNode() {
@@ -55,28 +69,29 @@ public class TreeSearch {
       nodeList.add(new NodeImpl("item " + i, null));
     }
     List<Node> list9 = new ArrayList<>();
-    list9.add(nodeList.get(0));
-    list9.add(nodeList.get(1));
     Node node9 = new NodeImpl("item 9", list9);
+    list9.add(nodeList.get(0).setParent(node9));
+    list9.add(nodeList.get(1).setParent(node9));
 
     List<Node> list10 = new ArrayList<>();
-    list10.add(nodeList.get(2));
-    list10.add(nodeList.get(3));
-    list10.add(nodeList.get(4));
     Node node10 = new NodeImpl("item 10", list10);
+    list10.add(nodeList.get(2).setParent(node10));
+    list10.add(nodeList.get(3).setParent(node10));
+    list10.add(nodeList.get(4).setParent(node10));
 
     List<Node> list11 = new ArrayList<>();
-    list11.add(nodeList.get(5));
-    list11.add(nodeList.get(6));
-    list11.add(nodeList.get(7));
-    list11.add(nodeList.get(8));
     Node node11 = new NodeImpl("item 11", list11);
+    list11.add(nodeList.get(5).setParent(node11));
+    list11.add(nodeList.get(6).setParent(node11));
+    list11.add(nodeList.get(7).setParent(node11));
+    list11.add(nodeList.get(8).setParent(node11));
 
     List<Node> list12 = new ArrayList<>();
-    list12.add(node9);
-    list12.add(node10);
-    list12.add(node11);
-    return new NodeImpl("root", list12);
+    Node rootNode =  new NodeImpl("root", list12);
+    list12.add(node9.setParent(rootNode));
+    list12.add(node10.setParent(rootNode));
+    list12.add(node11.setParent(rootNode));
+    return  rootNode;
   }
 
   public Node findNodeByName(String name, Node startNode) {
@@ -98,8 +113,8 @@ public class TreeSearch {
 
   public static void main(String[] args) {
     TreeSearch test = new TreeSearch();
-    Node res = test.findNodeByName("item 11", test.getRootNode());
-    System.out.println("res = " + (res != null ? res.getNodeName() : "Not found"));
+    Node res = test.findNodeByName("item 5", test.getRootNode());
+    System.out.println("res = " + (res != null ? res.getNodeName() + " on root " + (res.getParent() != null ? res.getParent().getNodeName() : "root") : "Not found"));
   }
 
 
