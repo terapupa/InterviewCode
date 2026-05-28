@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'org.jetbrains.kotlin.jvm'
 }
 
 group 'org.example'
@@ -23,8 +24,11 @@ dependencies {
             "org.mockito:mockito-junit-jupiter:$mockitoVersion",
             "org.junit.jupiter:junit-jupiter-params:$junitVersion"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
 
 //    implementation group: 'io.github.resilience4j', name: 'resilience4j-core', version: '1.5.0'
 //    implementation group: 'io.github.resilience4j', name: 'resilience4j-retry', version: '1.5.0'
+}
+compileKotlin {
 }

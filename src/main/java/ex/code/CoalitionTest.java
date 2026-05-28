@@ -35,7 +35,7 @@ public class CoalitionTest {
   }
 
 
-  class Solution {
+  class Solution1 {
 
 
     public static final int INTERVAL_SECONDS = 1;

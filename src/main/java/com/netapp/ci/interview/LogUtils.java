@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class LogUtils {
 
@@ -22,7 +23,7 @@ public class LogUtils {
         List<BufferedReader> logFileReaders = new ArrayList<>();
         File[] files = new File(inputDir)
                 .listFiles((dir, name) -> name.endsWith(".log"));
-        for (File file : files) {
+        for (File file : Objects.requireNonNull(files)) {
             logFileReaders.add(new BufferedReader(new FileReader(file)));
         }
         return logFileReaders;

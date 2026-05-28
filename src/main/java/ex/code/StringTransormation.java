@@ -27,62 +27,58 @@ public class StringTransormation {
 
   */
 
-  static List<String> getSameLevelStrings(String inputStr) {
-    List<String> result = new ArrayList<>();
-    String[] arr = inputStr.split("");
-
-    StringBuilder oneString = new StringBuilder();
-    int braceCount = 0;
-    for (String s : arr) {
-      oneString.append(s);
-      if ("[".equals(s)) {
-        braceCount++;
-      } else if ("]".equals(s)) {
-        braceCount--;
-        if (braceCount == 0) {
-          result.add(oneString.toString());
-          oneString = new StringBuilder();
-        }
-      }
-    }
-    return result;
+  // Replace previous implementation with a recursive decoder.
+  public static String processStr (String inputStr) {
+    int[] idx = new int[]{0}; // use array to pass by reference
+    return decode(inputStr, idx);
   }
 
-  public static String processStr (String inputStr) {
+  private static String decode(String s, int[] idx) {
     StringBuilder res = new StringBuilder();
-    List<String> sameLevelStr = getSameLevelStrings(inputStr);
-    for (String s : sameLevelStr) {
-      res.append(calculate(s));
+    int n = s.length();
+    while (idx[0] < n) {
+      char c = s.charAt(idx[0]);
+      if (c == ']') {
+        // end of current level
+        idx[0]++; // consume ']'
+        break;
+      } else if (Character.isDigit(c)) {
+        // parse number
+        int num = 0;
+        while (idx[0] < n && Character.isDigit(s.charAt(idx[0]))) {
+          num = num * 10 + (s.charAt(idx[0]) - '0');
+          idx[0]++;
+        }
+        // expect '['
+        if (idx[0] < n && s.charAt(idx[0]) == '[') {
+          idx[0]++; // consume '['
+        }
+        // decode substring inside brackets
+        String decoded = decode(s, idx);
+        for (int k = 0; k < num; k++) {
+          res.append(decoded);
+        }
+      } else {
+        // plain character
+        res.append(c);
+        idx[0]++;
+      }
     }
     return res.toString();
   }
 
-  private static String calculate(String str) {
-    int startBracket = str.indexOf("[");
-    int endBracket = str.lastIndexOf("]");
-    List<String> chunkList = new ArrayList<>(Arrays.asList(str.split("[^0-9]")));
-    chunkList.removeAll(Collections.singleton(""));
-    int multi = Integer.parseInt(chunkList.toArray(new String[0])[0]);
-    String body = str.substring(startBracket+1, endBracket);
-    if (isSimple(body)) {
-      return body.repeat(multi);
-    } else {
-      String[] chunks = body.split("[0-9]");
-      return (chunks[0] + processStr(str.substring(chunks[0].length()-1))).repeat(multi);
-    }
-  }
-
-  private static boolean isSimple(String toCheck) {
-    return !(toCheck.contains("[") && toCheck.contains("]"));
-  }
-
   public static void main(String[] args) {
+    String[] samples = new String[]{
+      "3[a]",
+      "2[a]3[b2[cf3[dr]bl2[g]k2[y]]",
+      "2[a3[cd]]"
+    };
 
-    String input = "2[a]3[bc]4[akb3[ciod2[llv3[m]]]]";
-//    String input = "2[a3[cd4[jp]]]";
-    System.out.println(processStr(input));
-
-
-
+    for (String s : samples) {
+      String out = processStr(s);
+      System.out.println("Input:  \"" + s + "\"");
+      System.out.println("Output: \"" + out + "\"");
+      System.out.println();
+    }
   }
 }

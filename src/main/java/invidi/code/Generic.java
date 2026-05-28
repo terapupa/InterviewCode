@@ -13,8 +13,8 @@ public class Generic {
     Integer pong(String pong);
   }
 
-  public PingService pingService = ping -> "" + ping;
-  public PongService pongService = String::length;
+  PingService pingService = ping -> "" + ping;
+  PongService pongService = String::length;
 
   static <T, R> Function<T, R> retryFunction(Properties properties, T input, Function<T, R> function) {
     int retries = Integer.parseInt((String) properties.get("retries"));

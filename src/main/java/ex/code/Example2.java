@@ -32,7 +32,7 @@ public class Example2 {
         return resultList.toArray(new Integer[0]);
       } else if (calculate > sum) {
         int[] inputTmp = new int[input.length - 1];
-        System.arraycopy(input, 1, inputTmp, 0, input.length - 1);
+        System.arraycopy(input, 1, inputTmp, 0, inputTmp.length);
         return findArray(inputTmp, sum);
       } else {
         resultList.add(i);
@@ -43,10 +43,10 @@ public class Example2 {
 
     public static void main (String[] args) {
 
-      int[] arr = {1, 3, 5, 4, 7};
-      int sum = 9;
+      int[] arr = {1, 6, 17, 21, 23, 32};
+      int sum = 33;
 
-      System.out.println(Arrays.toString(findArray(arr, sum)));
+      System.out.println(Arrays.toString(findArray(Arrays.stream(arr).sorted().toArray(), sum)));
       System.out.println("You're running Java!");
     }
 }

@@ -2,7 +2,7 @@ package ex.code;
 
 /*
 ### Description
-Consider a store where each item has a amount per unit. For example, apples may be $1.00 each.
+Consider a store where each item has an amount per unit. For example, apples may be $1.00 each.
 Implement a point-of-sale scanning API that accepts an arbitrary ordering of products
 (similar to what would happen at a checkout line) and then returns the correct total
 amount for an entire shopping cart based on the per unit prices as applicable.
@@ -48,15 +48,15 @@ public class ShoppingCart {
     terminal.setPricing("D", 1, 0.15f);
     terminal.setPricing("D", 50, 5f);
 
+    terminal.scan("A");
+    terminal.scan("B");
+    terminal.scan("C");
+    terminal.scan("D");
+    terminal.scan("A");
+    terminal.scan("A");
+    terminal.scan("A");
 //    terminal.scan("A");
-//    terminal.scan("B");
-//    terminal.scan("C");
-//    terminal.scan("D");
-    terminal.scan("A");
-    terminal.scan("A");
-    terminal.scan("A");
-    terminal.scan("A");
-    terminal.scan("A");
+//    terminal.scan("A");
 //    terminal.scan("A");
 //    terminal.scan("A");
 //    terminal.scan("A");
