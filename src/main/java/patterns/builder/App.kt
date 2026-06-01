@@ -2,8 +2,11 @@ package patterns.builder
 
 interface Builder {
     fun buildWheel()
+
     fun buildEngine()
+
     fun buildBody()
+
     fun getResult(): Car
 }
 
@@ -22,9 +25,7 @@ class SedanBuilder : Builder {
         println("build Sedan body")
     }
 
-    override fun getResult(): Car {
-        return car
-    }
+    override fun getResult(): Car = car
 }
 
 class SUVBuilder : Builder {
@@ -42,15 +43,13 @@ class SUVBuilder : Builder {
         println("build SUV body")
     }
 
-    override fun getResult(): Car {
-        return car
-    }
+    override fun getResult(): Car = car
 }
 
-class Car(val carType: String) {
-    override fun toString(): String {
-        return "Car(carType='$carType')"
-    }
+class Car(
+    val carType: String,
+) {
+    override fun toString(): String = "Car(carType='$carType')"
 }
 
 class Director {
@@ -72,5 +71,4 @@ fun main() {
     val suvBuilder = SUVBuilder()
     Director.build(suvBuilder)
     println(suvBuilder.getResult())
-
 }

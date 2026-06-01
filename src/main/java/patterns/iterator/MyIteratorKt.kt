@@ -1,13 +1,9 @@
 package patterns.iterator
 
-class MyIteratorKt (
-    val collection : MyIterableCollectionKt,
-)  : IteratorKt {
-    override fun hasNext(): Boolean {
-        return !collection.isEnd()
-    }
+class MyIteratorKt(
+    val collection: MyIterableCollectionKt,
+) : IteratorKt {
+    override fun hasNext(): Boolean = !collection.isEnd()
 
-    override fun next(): Any? {
-        return collection.getNext()
-    }
+    override fun next(): Any? = collection.getNext()
 }

@@ -1,17 +1,12 @@
 package patterns.iterator
 
-class MyIterableCollectionKt: IterableCollectionKt {
-
+class MyIterableCollectionKt : IterableCollectionKt {
     val list = listOf("One", "Two", "Three")
     private var index = 0
 
-    override fun getIterator(): IteratorKt {
-        return MyIteratorKt(this)
-    }
+    override fun getIterator(): IteratorKt = MyIteratorKt(this)
 
-    fun isEnd(): Boolean {
-        return index == list.size
-    }
+    fun isEnd(): Boolean = index == list.size
 
     fun getNext(): String? {
         if (index < list.size) {
@@ -19,5 +14,4 @@ class MyIterableCollectionKt: IterableCollectionKt {
         }
         return null
     }
-
 }

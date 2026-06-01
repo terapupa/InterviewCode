@@ -5,9 +5,10 @@ class MyInstance private constructor() {
         @Volatile
         private var instance: MyInstance? = null
 
-        fun getInstance(): MyInstance = instance ?: synchronized(this) {
-            instance ?: MyInstance().also { instance = it }
-        }
+        fun getInstance(): MyInstance =
+            instance ?: synchronized(this) {
+                instance ?: MyInstance().also { instance = it }
+            }
     }
 }
 

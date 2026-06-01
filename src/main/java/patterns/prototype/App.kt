@@ -1,14 +1,23 @@
 package patterns.prototype
 
-abstract class Shape(val x: Int, val y: Int, val color: String) {
-     abstract fun clone(): Shape
+abstract class Shape(
+    val x: Int,
+    val y: Int,
+    val color: String,
+) {
+    abstract fun clone(): Shape
 }
 
-data class Circle (val radius: Int) : Shape(0, 0, "red") {
+data class Circle(
+    val radius: Int,
+) : Shape(0, 0, "red") {
     override fun clone(): Shape = this.copy()
 }
 
-data class Rectangle(val width: Int, val height: Int) : Shape(0, 0, "blue") {
+data class Rectangle(
+    val width: Int,
+    val height: Int,
+) : Shape(0, 0, "blue") {
     override fun clone(): Shape = this.copy()
 }
 
