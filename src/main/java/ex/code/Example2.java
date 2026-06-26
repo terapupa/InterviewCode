@@ -22,31 +22,30 @@ import java.util.List;
 
 public class Example2 {
 
-  private static Integer[] findArray(int[] input, int sum) {
-    List<Integer> resultList = new ArrayList<>();
-    int calculate = 0;
-    for (int i : input) {
-      calculate = calculate + i;
-      if (calculate == sum) {
-        resultList.add(i);
+    private static Integer[] findArray(int[] input, int sum) {
+        List<Integer> resultList = new ArrayList<>();
+        int calculate = 0;
+        for (int i : input) {
+            calculate = calculate + i;
+            if (calculate == sum) {
+                resultList.add(i);
+                return resultList.toArray(new Integer[0]);
+            } else if (calculate > sum) {
+                int[] inputTmp = new int[input.length - 1];
+                System.arraycopy(input, 1, inputTmp, 0, inputTmp.length);
+                return findArray(inputTmp, sum);
+            } else {
+                resultList.add(i);
+            }
+        }
         return resultList.toArray(new Integer[0]);
-      } else if (calculate > sum) {
-        int[] inputTmp = new int[input.length - 1];
-        System.arraycopy(input, 1, inputTmp, 0, inputTmp.length);
-        return findArray(inputTmp, sum);
-      } else {
-        resultList.add(i);
-      }
     }
-    return resultList.toArray(new Integer[0]);
-  }
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
-      int[] arr = {1, 6, 17, 21, 23, 32};
-      int sum = 33;
+        int[] arr = {1, 2,4,5,6,7,8,9, 17, 21, 23, 32};
+        int sum = 33;
 
-      System.out.println(Arrays.toString(findArray(Arrays.stream(arr).sorted().toArray(), sum)));
-      System.out.println("You're running Java!");
+        System.out.println(Arrays.toString(findArray(Arrays.stream(arr).sorted().toArray(), sum)));
     }
 }

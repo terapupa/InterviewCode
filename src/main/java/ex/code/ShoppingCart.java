@@ -38,65 +38,65 @@ import java.util.TreeMap;
 
 public class ShoppingCart {
 
-  public static void main(String[] args) {
-    Terminal terminal = new Terminal();
-    terminal.setPricing("A", 1, 2.00f);
-    terminal.setPricing("A", 4, 7.00f);
-    terminal.setPricing("B", 1, 12.00f);
-    terminal.setPricing("C", 1, 1.25f);
-    terminal.setPricing("C", 6, 6f);
-    terminal.setPricing("D", 1, 0.15f);
-    terminal.setPricing("D", 50, 5f);
+    public static void main(String[] args) {
+        Terminal terminal = new Terminal();
+        terminal.setPricing("A", 1, 2.00f);
+        terminal.setPricing("A", 4, 7.00f);
+        terminal.setPricing("B", 1, 12.00f);
+        terminal.setPricing("C", 1, 1.25f);
+        terminal.setPricing("C", 6, 6f);
+        terminal.setPricing("D", 1, 0.15f);
+        terminal.setPricing("D", 50, 5f);
 
-    terminal.scan("A");
-    terminal.scan("B");
-    terminal.scan("C");
-    terminal.scan("D");
-    terminal.scan("A");
-    terminal.scan("A");
-    terminal.scan("A");
-//    terminal.scan("A");
+        terminal.scan("A");
+        terminal.scan("B");
+        terminal.scan("C");
+        terminal.scan("D");
+        terminal.scan("A");
+        terminal.scan("A");
+        terminal.scan("A");
+//        terminal.scan("A");
 //    terminal.scan("A");
 //    terminal.scan("A");
 //    terminal.scan("A");
 //    terminal.scan("A");
 
-    System.out.println("Total : $" + terminal.getTotal());
-  }
-
-  static class Terminal {
-    private final Map<String, NavigableMap<Integer, Float>> priceMap = new HashMap<>();
-    private final Map<String, Integer> scannedItems = new HashMap<>();
-
-    public void setPricing(String product, int quantity, float price) {
-      NavigableMap<Integer, Float> productPrice = priceMap.get(product);
-      if (productPrice == null) {
-        productPrice = new TreeMap<>();
-      }
-      productPrice.put(quantity, price);
-      priceMap.put(product, productPrice);
+        System.out.println("Total : $" + terminal.getTotal());
     }
 
-    public void scan(String product) {
-      scannedItems.merge(product, 1, Integer::sum);
-    }
+    static class Terminal {
+        private final Map<String, NavigableMap<Integer, Float>> priceMap = new HashMap<>();
+        private final Map<String, Integer> scannedItems = new HashMap<>();
 
-    public float getTotal() {
-      float totalCost = 0;
-      for (String product : scannedItems.keySet()) {
-        if (priceMap.containsKey(product)) {
-          Integer productItems = scannedItems.get(product);
-          while (productItems > 0) {
-            NavigableMap<Integer, Float> priceEntries = priceMap.get(product);
-            Integer closedPriceKey = priceEntries.floorKey(productItems);
-            totalCost = totalCost + priceEntries.get(closedPriceKey) * (float) (productItems / closedPriceKey);
-            productItems = productItems % closedPriceKey;
-          }
+        public void setPricing(String product, int quantity, float price) {
+            NavigableMap<Integer, Float> productPrice = priceMap.get(product);
+            if (productPrice == null) {
+                productPrice = new TreeMap<>();
+            }
+            productPrice.put(quantity, price);
+            priceMap.put(product, productPrice);
         }
-      }
-      return totalCost;
-    }
 
-  }
+        public void scan(String product) {
+            scannedItems.merge(product, 1, Integer::sum);
+        }
+
+        public float getTotal() {
+            float totalCost = 0;
+            for (String product : scannedItems.keySet()) {
+                if (priceMap.containsKey(product)) {
+                    Integer productItems = scannedItems.get(product);
+                    while (productItems > 0) {
+                        NavigableMap<Integer, Float> priceEntries = priceMap.get(product);
+                        Integer closedPriceKey = priceEntries.floorKey(productItems);
+                        totalCost = totalCost + priceEntries.get(closedPriceKey) * (float) (productItems / closedPriceKey);
+                        productItems = productItems % closedPriceKey;
+                    }
+                }
+            }
+            return totalCost;
+        }
+
+    }
 
 }
