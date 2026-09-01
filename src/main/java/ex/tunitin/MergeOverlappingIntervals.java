@@ -1,10 +1,15 @@
 package ex.tunitin;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class MergeOverlappingIntervals {
+
+    private static int applyAsInt(Interval interval) {
+        return interval.start;
+    }
 
     record Interval(int start, int end) {
     }
@@ -31,7 +36,7 @@ public class MergeOverlappingIntervals {
         }
         List<Interval> result = new LinkedList<>();
         List<Interval> sortedIntervals = new LinkedList<>(intervals);
-        sortedIntervals.sort(Comparator.comparingInt(Interval::start));
+        sortedIntervals.sort(Comparator.comparingInt(Interval::start).thenComparing(Interval::end));
 
         Interval currentInterval = sortedIntervals.get(0);
         for (int i = 1; i < sortedIntervals.size(); i++) {
