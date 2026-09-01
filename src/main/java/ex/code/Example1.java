@@ -4,7 +4,6 @@ public class Example1 {
 // aaaabbbcccddddaaa
 // a4b3c3d4a3
 
-
     public String convert(String input) {
         String result = "";
         String[] splitted = input.split("(?<=(.))(?!\\1)");

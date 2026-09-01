@@ -30,7 +30,6 @@ Constraints:
 import java.util.Arrays;
 
 public class FindMinAbsentPositive {
-
     public static int firstMissingPositive(int[] nums) {
         sort(nums);
         int smallestMissing = 1;
@@ -44,8 +43,6 @@ public class FindMinAbsentPositive {
 
     public static void sort(int[] arr) {
         if (arr.length == 0) return;
-
-        // 1. Find the maximum and minimum values to determine the range
         int max = 0;
         int min = 0;
         for (int num : arr) {
@@ -55,19 +52,13 @@ public class FindMinAbsentPositive {
                 min = num;
             }
         }
-
-        // 2. Create a frequency/count array
         boolean[] count = new boolean[max - min + 1];
-
-        // 3. Store the count of each positive element
         for (int num : arr) {
             if (num > 0) {
                 int index = num - min;
                 count[index] = true;
             }
         }
-
-        // 4. Rebuild the original array in positive sorted order
         int arrayIndex = 0;
         for (int i = 0; i < count.length; i++) {
             if (count[i]) {
